@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Mobile Sensors</title>
+	<script type="text/javascript">
+		function updateFieldIfNotNull(fieldName, value, precision=10){
+		  if (value != null)
+		    document.getElementById(fieldName).innerHTML = value.toFixed(precision);
+		}
+
+		function handleOrientation(event) {
+		  updateFieldIfNotNull('Orientation_a', event.alpha); // gradus
+		  updateFieldIfNotNull('Orientation_b', event.beta);
+		  updateFieldIfNotNull('Orientation_g', event.gamma);
+		}
+
+		function handleMotion(event) {
+		  updateFieldIfNotNull('Accelerometer_gx', event.accelerationIncludingGravity.x); // right to left
+		  updateFieldIfNotNull('Accelerometer_gy', event.accelerationIncludingGravity.y); // top to bottom
+		  updateFieldIfNotNull('Accelerometer_gz', event.accelerationIncludingGravity.z); // from screen to back
+
+		  updateFieldIfNotNull('Accelerometer_x', event.acceleration.x); // right to left
+		  updateFieldIfNotNull('Accelerometer_y', event.acceleration.y); // top to bottom
+		  updateFieldIfNotNull('Accelerometer_z', event.acceleration.z); // from screen to back
+
+		  updateFieldIfNotNull('Accelerometer_i', event.interval, 2); // interval of checking
+
+		  updateFieldIfNotNull('Gyroscope_z', event.rotationRate.alpha);
+		  updateFieldIfNotNull('Gyroscope_x', event.rotationRate.beta);
+		  updateFieldIfNotNull('Gyroscope_y', event.rotationRate.gamma);
+		}
+
+		// Request permission for iOS 13+ devices
+		if (DeviceMotionEvent && typeof DeviceMotionEvent.requestPermission === "function") {
+			DeviceMotionEvent.requestPermission();
+		}
+
+		window.addEventListener("devicemotion", handleMotion);
+		window.addEventListener("deviceorientation", handleOrientation);
+
+		(function startAccelerometerListener() {
+		    try {
+		        let sensor = new Accelerometer({ frequency: 1 });
+		        sensor.addEventListener('reading', () => {
+		        	updateFieldIfNotNull('Sensor_Accelerometer_x', sensor.x);
+		        	updateFieldIfNotNull('Sensor_Accelerometer_y', sensor.y);
+		        	updateFieldIfNotNull('Sensor_Accelerometer_z', sensor.z);
+		        });
+		        sensor.start();
+		    } catch (error) {}
+		})();
+
+		(function startGyroscopeListener() {
+		    try {
+		        let sensor = new Gyroscope({ frequency: 1 });
+		        sensor.addEventListener('reading', () => {
+		        	updateFieldIfNotNull('Sensor_Gyroscope_x', sensor.x);
+		        	updateFieldIfNotNull('Sensor_Gyroscope_y', sensor.y);
+		        	updateFieldIfNotNull('Sensor_Gyroscope_z', sensor.z);
+		        });
+		        sensor.start();
+		    } catch (error) {}
+		})();
+
+		(function startLinearAccelerationSensorListener() {
+		    try {
+		        let sensor = new LinearAccelerationSensor({frequency: 1});
+		        sensor.addEventListener('reading', () => {
+		        	updateFieldIfNotNull('Sensor_LinearAccelerationSensor_x', sensor.x);
+		        	updateFieldIfNotNull('Sensor_LinearAccelerationSensor_y', sensor.y);
+		        	updateFieldIfNotNull('Sensor_LinearAccelerationSensor_z', sensor.z);
+		        });
+		        sensor.start();
+		    } catch (error) {}
+		})();
+
+		(function startAbsoluteOrientationSensorListener() {
+		    try {
+		        let sensor = new AbsoluteOrientationSensor({frequency: 1});
+		        sensor.addEventListener('reading', () => console.log(sensor.quaternion));
+		        sensor.start();
+		    } catch (error) {}
+		})();
+
+		(function startRelativeOrientationSensorListener() {
+		    try {
+		        let sensor = new RelativeOrientationSensor({ frequency: 1 });
+		        sensor.addEventListener('reading', () => console.log(sensor.quaternion));
+		        sensor.start();
+		    } catch (error) {}
+		})();
+
+		(function startGravitySensorListener() {
+		    try {
+		        let sensor = new GravitySensor({ frequency: 1 });
+		        sensor.addEventListener('reading', () => {
+		        	updateFieldIfNotNull('Sensor_GravitySensor_x', sensor.x);
+		        	updateFieldIfNotNull('Sensor_GravitySensor_y', sensor.y);
+		        	updateFieldIfNotNull('Sensor_GravitySensor_z', sensor.z);
+		        });
+		        sensor.start();
+		    } catch (error) {}
+		})();
+
+	</script>
+</head>
+<body>
+	<div>
+		<p>Orientation_a: <span id="Orientation_a"></span></p>
+		<p>Orientation_b: <span id="Orientation_b"></span></p>
+		<p>Orientation_g: <span id="Orientation_g"></span></p>
+	</div>
+	<br/>
+
+	<div>
+		<p>Accelerometer_gx: <span id="Accelerometer_gx"></span></p>
+		<p>Accelerometer_gy: <span id="Accelerometer_gy"></span></p>
+		<p>Accelerometer_gz: <span id="Accelerometer_gz"></span></p>
+	</div>
+	<br/>
+
+	<div>
+		<p>Accelerometer_x: <span id="Accelerometer_x"></span></p>
+		<p>Accelerometer_y: <span id="Accelerometer_y"></span></p>
+		<p>Accelerometer_z: <span id="Accelerometer_z"></span></p>
+	</div>
+	<br/>
+
+	<div>
+		<p>Accelerometer_i: <span id="Accelerometer_i"></span></p>
+	</div>
+	<br/>
+
+	<div>
+		<p>Gyroscope_x: <span id="Gyroscope_x"></span></p>
+		<p>Gyroscope_y: <span id="Gyroscope_y"></span></p>
+		<p>Gyroscope_y: <span id="Gyroscope_y"></span></p>
+	</div>
+
+	<hr/>
+
+	<div>
+		<p>Sensor_Accelerometer_x: <span id="Sensor_Accelerometer_x"></span></p>
+		<p>Sensor_Accelerometer_y: <span id="Sensor_Accelerometer_y"></span></p>
+		<p>Sensor_Accelerometer_z: <span id="Sensor_Accelerometer_z"></span></p>
+	</div>
+	<br/>
+
+	<div>
+		<p>Sensor_Gyroscope_x: <span id="Sensor_Gyroscope_x"></span></p>
+		<p>Sensor_Gyroscope_y: <span id="Sensor_Gyroscope_y"></span></p>
+		<p>Sensor_Gyroscope_z: <span id="Sensor_Gyroscope_z"></span></p>
+	</div>
+	<br/>
+
+	<div>
+		<p>Sensor_LinearAccelerationSensor_x: <span id="Sensor_LinearAccelerationSensor_x"></span></p>
+		<p>Sensor_LinearAccelerationSensor_y: <span id="Sensor_LinearAccelerationSensor_y"></span></p>
+		<p>Sensor_LinearAccelerationSensor_z: <span id="Sensor_LinearAccelerationSensor_z"></span></p>
+	</div>
+	<br/>
+
+	<div>
+		<p>Sensor_GravitySensor_x: <span id="Sensor_GravitySensor_x"></span></p>
+		<p>Sensor_GravitySensor_y: <span id="Sensor_GravitySensor_y"></span></p>
+		<p>Sensor_GravitySensor_z: <span id="Sensor_GravitySensor_z"></span></p>
+	</div>
+	<br/>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+body { font-family: "Roboto"; font-size: 18px; background-color: #3D87AF; text-align: justify;}
+.container { background-color: #fff; }
+h1 {font-weight: 100; font-family: "Sansita"; font-size: 45px; color: #333;  }
+h2 {font-weight: 100; font-size: 28px; color: #333; margin-bottom: 25px;  }
+h3 {font-weight: 700; font-size: 21px; color: #333;  }
+h4 {font-weight: 700; font-size: 18px; color: #333;  }
+
+.air { height: 40px; }
+.vcenter { display: inline-block; vertical-align: middle; float: none; }
+.center{ float: none; margin: 0 auto; text-align: center; }
+.clearfix() { &:before, &:after { content: " "; display: table; } &:after { clear: both; } }
+
+.row .description { margin-bottom: 20px; }
+.row .img-circle { border: 0.3em solid #3D87AF; }
+.row h1.vcenter { margin-top: 70px; margin-bottom: 70px; }
+
+.panel-heading { cursor: pointer; }
+.panel-heading a { color: #fff; }
+.panel-heading .fa.pull-right { font-size: 25px; margin-top: 1px; cursor: pointer;}
+.col-md-4 .panel-body .fa { width: 30px; height: 30px; margin-right: 8px; margin-bottom: 2px; display: inline-block; color: #fff; -webkit-border-radius: 50%; -moz-border-radius: 50%; -ms-border-radius: 50%; -o-border-radius: 50%; border-radius: 50%; -moz-background-clip: padding; -webkit-background-clip: padding-box; background-clip: padding-box; background: #3D87AF; text-align: center; padding-top: 7px; font-size: 16px; position: relative; top: -2px; }
+.col-md-6 .panel-body, .recommendations .col-md-12 .panel-body { display: none; }  
+.panel-footer a.pull-right { font-style: italic; font-size: 16px;}
+/*.row .col-md-4 { text-align: left; }*/
+.comments { font-size: 16px; }
+
+.experience .item > div { margin-bottom: 20px; }
+.experience h3 { margin: 10px 0px 3px; }
+.experience .time { position: absolute; top: 0px; right: 15px; margin-top: 10px; color: #999; font-size: 16px;}
+.experience .company { color: #999; margin-bottom: 10px; font-size: 16px; }
+
+@media screen and (max-width: 768px) {
+	.air { height: 20px; }	
+	.row h1.vcenter { margin-top: 35px; margin-bottom: 35px; }
+}
+
+@media screen and (max-width: 992px) {
+	.experience .time { margin-top: 0px; }
+}
+
+@media print {
+	body { font-size: 16px; }
+	h1 { font-size: 40px; }
+	.air { height: 20px; }
+	.recommendations .col-xs-12 .panel-body { display: block; }
+	.projects, .col-xs-4 .panel-body .fa { display: none; }
+	 -webkit-print-color-adjust: exact;
+	.col-xs-6 .row { page-break-after: always; }
+}
