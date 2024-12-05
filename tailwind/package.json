@@ -1,0 +1,8 @@
+{
+  "scripts":{
+    "dev":"npx tailwindcss -i ./tailwind.css -o ../cv-styles.css --watch"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.15"
+  }
+}
